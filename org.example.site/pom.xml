@@ -14,7 +14,7 @@
   <properties>
     <build.destination>${project.build.directory}/installed-eclipse</build.destination>
     <features>org.example.feature.feature.group</features>
-    <sites>file:/${project.build.directory}/repository</sites>
+    <sites>file:/${project.build.directory}/repository,https://download.eclipse.org/eclipse/updates/4.19</sites>
   </properties>
 
   <artifactId>org.example.site</artifactId>
