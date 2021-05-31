@@ -23,4 +23,8 @@ jobs:
     - name: Build with Maven
       run: mvn verify
       working-directory: org.example.parent
-
+    - name: Archive p2 Repositories
+      uses: actions/upload-artifact@v2
+      with:
+        name: p2-repositories
+        path: '**/target/repository'
