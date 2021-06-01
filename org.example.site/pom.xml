@@ -12,7 +12,7 @@
   </parent>
 
   <properties>
-    <build.destination>${project.build.directory}/installed-eclipse</build.destination>
+    <build.destination>${project.build.directory}/installed-plugins</build.destination>
     <features>org.example.feature.feature.group</features>
     <sites>file:/${project.build.directory}/repository</sites>
   </properties>
@@ -32,20 +32,46 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.codehaus.gmaven</groupId>
-        <artifactId>groovy-maven-plugin</artifactId>
-        <version>2.1.1</version>
+        <groupId>org.codehaus.gmavenplus</groupId>
+        <artifactId>gmavenplus-plugin</artifactId>
+        <version>1.12.1</version>
         <executions>
           <execution>
-            <phase>package</phase>
             <goals>
               <goal>execute</goal>
             </goals>
-            <configuration>
-              <source>${basedir}/patchcontentxml.groovy</source>
-            </configuration>
+            <phase>package</phase>
           </execution>
         </executions>
+        <configuration>
+          <scripts>
+            <script><![CDATA[
+            // Add copies of all referenced <repository> elements with type=1
+            // See https://www.eclipse.org/lists/epsilon-dev/msg00522.html for context
+            // See https://bugs.eclipse.org/bugs/show_bug.cgi?id=565859
+            // See https://bugs.eclipse.org/bugs/show_bug.cgi?id=453708
+            // See https://github.com/eclipse/tycho/issues/141
+            
+            File contentXml = new File(project.build.directory, "repository/content.xml")
+            def patchedContentXml = new File(project.build.directory, "repository/content.xml")
+            
+            def document = new XmlParser().parse(contentXml)
+            def references = document.references[0]
+            
+            for (repository in references.repository) {
+            	def type1Repository = references.appendNode("repository");
+            	type1Repository.@uri = repository.@uri
+            	type1Repository.@url = repository.@url
+            	type1Repository.@options = "1"
+            	type1Repository.@type = "1"
+            }
+            
+            references.@size = (references.@size as Integer) * 2
+            
+            new XmlNodePrinter(new PrintWriter(new FileWriter(patchedContentXml))).print(document)
+            ]]></script>
+          </scripts>
+        </configuration>
         <dependencies>
           <dependency>
             <groupId>org.codehaus.groovy</groupId>
