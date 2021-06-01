@@ -42,7 +42,7 @@
               <goal>execute</goal>
             </goals>
             <configuration>
-              <source>patch-content-xml.groovy</source>
+              <source>patchcontentxml.groovy</source>
             </configuration>
           </execution>
         </executions>
