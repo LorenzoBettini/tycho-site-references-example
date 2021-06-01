@@ -82,6 +82,71 @@
         </dependencies>
       </plugin>
       <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <dependencies>
+          <!-- Needed for XZ compression -->
+          <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant-compress</artifactId>
+            <version>1.5</version>
+          </dependency>
+        </dependencies>
+        <executions>
+          <execution>
+            <id>jar-artifacts-content</id>
+            <phase>package</phase>
+            <configuration>
+              <target>
+                <jar destfile="${project.build.directory}/repository/artifacts.jar"
+                  basedir="${project.build.directory}/repository/"
+                  includes="artifacts.xml"
+                />
+                <jar destfile="${project.build.directory}/repository/content.jar"
+                  basedir="${project.build.directory}/repository/"
+                  includes="content.xml" />
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>xz-artifacts-content</id>
+            <phase>package</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target name="xz-artifacts-xml">
+                <taskdef resource="org/apache/ant/compress/antlib.xml"
+                  classpathref="maven.plugin.classpath" />
+                <xz
+                  srcfile="${project.build.directory}/repository/artifacts.xml"
+                  destfile="${project.build.directory}/repository/artifacts.xml.xz" />
+                <xz
+                  srcfile="${project.build.directory}/repository/content.xml"
+                  destfile="${project.build.directory}/repository/content.xml.xz" />
+              </target>
+            </configuration>
+          </execution>
+          <execution>
+            <!-- (4)
+              Remove artifacts.xml (we don't need that anymore) -->
+            <id>remove-artifacts-content-xml</id>
+            <phase>package</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target>
+                <delete file="${project.build.directory}/repository/artifacts.xml"/>
+                <delete file="${project.build.directory}/repository/content.xml"/>
+              </target>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <groupId>org.eclipse.tycho.extras</groupId>
         <artifactId>tycho-eclipserun-plugin</artifactId>
         <executions>
