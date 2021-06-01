@@ -14,7 +14,7 @@
   <properties>
     <build.destination>${project.build.directory}/installed-eclipse</build.destination>
     <features>org.example.feature.feature.group</features>
-    <sites>file:/${project.build.directory}/repository,https://download.eclipse.org/eclipse/updates/4.19</sites>
+    <sites>file:/${project.build.directory}/repository</sites>
   </properties>
 
   <artifactId>org.example.site</artifactId>
@@ -23,10 +23,20 @@
   <build>
     <plugins>
       <plugin>
+        <groupId>org.eclipse.tycho</groupId>
+        <artifactId>tycho-p2-repository-plugin</artifactId>
+        <configuration>
+          <compress>false</compress>
+          <xzCompress>false</xzCompress>
+          <skipArchive>true</skipArchive>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.eclipse.tycho.extras</groupId>
         <artifactId>tycho-eclipserun-plugin</artifactId>
         <executions>
           <execution>
+            <id>verify-feature-installation</id>
             <configuration>
               <jvmArgs>-Declipse.p2.mirrors=true</jvmArgs>
               <applicationsArgs>
@@ -34,13 +44,14 @@
                 <args>-application</args>
                 <args>org.eclipse.equinox.p2.director</args>
                 <args>-nosplash</args>
+                <args>-followReferences</args>
                 <args>-destination</args>
                 <args>${build.destination}</args>
                 <args>-repository</args>
                 <args>${sites}</args>
                 <args>-installIUs</args>
                 <args>${features}</args>
-                <args>-verifyOnly</args>
+<!--                 <args>-verifyOnly</args> -->
               </applicationsArgs>
             </configuration>
             <goals>
