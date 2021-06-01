@@ -42,7 +42,7 @@
               <goal>execute</goal>
             </goals>
             <configuration>
-              <source>patchcontentxml.groovy</source>
+              <source>${basedir}/patchcontentxml.groovy</source>
             </configuration>
           </execution>
         </executions>
