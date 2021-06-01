@@ -97,11 +97,11 @@
             <phase>package</phase>
             <configuration>
               <target>
-                <jar destfile="${project.build.directory}/repository/artifacts.jar"
+                <zip destfile="${project.build.directory}/repository/artifacts.jar"
                   basedir="${project.build.directory}/repository/"
                   includes="artifacts.xml"
                 />
-                <jar destfile="${project.build.directory}/repository/content.jar"
+                <zip destfile="${project.build.directory}/repository/content.jar"
                   basedir="${project.build.directory}/repository/"
                   includes="content.xml" />
               </target>
@@ -130,8 +130,7 @@
             </configuration>
           </execution>
           <execution>
-            <!-- (4)
-              Remove artifacts.xml (we don't need that anymore) -->
+            <!--Remove artifacts.xml and content.xml (we don't need them anymore) -->
             <id>remove-artifacts-content-xml</id>
             <phase>package</phase>
             <goals>
@@ -141,6 +140,22 @@
               <target>
                 <delete file="${project.build.directory}/repository/artifacts.xml"/>
                 <delete file="${project.build.directory}/repository/content.xml"/>
+              </target>
+            </configuration>
+          </execution>
+          <execution>
+            <id>create p2.index</id>
+            <phase>package</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target>
+                <echo file="${project.build.directory}/repository/p2.index">
+artifact.repository.factory.order=artifacts.xml.xz,artifacts.xml,\!
+version=1
+metadata.repository.factory.order=content.xml.xz,content.xml,\!
+</echo>
               </target>
             </configuration>
           </execution>
