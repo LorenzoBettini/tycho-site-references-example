@@ -26,6 +26,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <eclipse-version>2020-12</eclipse-version>
     <eclipse-version-number>4.18</eclipse-version-number>
+    <xtext-version>2.25.0</xtext-version>
   </properties>
 
   <repositories>
@@ -33,6 +34,11 @@
       <id>${eclipse-version}</id>
       <layout>p2</layout>
       <url>https://download.eclipse.org/releases/${eclipse-version}</url>
+    </repository>
+    <repository>
+      <id>${xtext-version}</id>
+      <layout>p2</layout>
+      <url>https://download.eclipse.org/modeling/tmf/xtext/updates/releases/${xtext-version}</url>
     </repository>
   </repositories>
 

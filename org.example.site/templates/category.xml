@@ -17,4 +17,7 @@
       </description>
    </category-def>
    <repository-reference location="http://download.eclipse.org/eclipse/updates/${eclipse-version-number}" enabled="true" />
+   <repository-reference location="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/${xtext-version}" enabled="true" />
+   <repository-reference location="http://download.eclipse.org/tools/orbit/downloads/${eclipse-version}" enabled="true" />
+   <repository-reference location="http://download.eclipse.org/modeling/emf/emf/builds/release/latest" enabled="true" />
 </site>
