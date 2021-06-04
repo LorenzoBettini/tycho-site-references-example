@@ -16,5 +16,5 @@
          P2 Example Repository (Sources)
       </description>
    </category-def>
-   <repository-reference location="http://download.eclipse.org/eclipse/updates/4.18" enabled="true" />
+   <repository-reference location="http://download.eclipse.org/eclipse/updates/${eclipse-version-number}" enabled="true" />
 </site>

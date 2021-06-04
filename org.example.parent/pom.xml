@@ -25,6 +25,7 @@
     <tycho-extras-version>${tycho-version}</tycho-extras-version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <eclipse-version>2020-12</eclipse-version>
+    <eclipse-version-number>4.18</eclipse-version-number>
   </properties>
 
   <repositories>
