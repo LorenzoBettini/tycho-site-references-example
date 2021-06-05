@@ -25,27 +25,27 @@
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
         <executions>
-            <execution>
-                <id>copy-resources</id>
-                <phase>generate-resources</phase>
-                <goals>
-                    <goal>copy-resources</goal>
-                </goals>
-                <configuration>
-                    <outputDirectory>${basedir}</outputDirectory>
-                    <resources>
-                        <resource>
-                            <directory>${basedir}/templates/</directory>
-                            <includes>
-                                <include>category.xml</include>
-                            </includes>
-                            <filtering>true</filtering>
-                        </resource>
-                    </resources>
-                </configuration>
-            </execution>
+          <execution>
+            <id>copy-resources</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${basedir}/templates/</directory>
+                  <includes>
+                    <include>category.xml</include>
+                  </includes>
+                  <filtering>true</filtering>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
         </executions>
-    </plugin>
+      </plugin>
       <plugin>
         <groupId>org.eclipse.tycho</groupId>
         <artifactId>tycho-p2-repository-plugin</artifactId>
@@ -121,11 +121,12 @@
             <phase>package</phase>
             <configuration>
               <target>
-                <zip destfile="${project.build.directory}/repository/artifacts.jar"
+                <zip
+                  destfile="${project.build.directory}/repository/artifacts.jar"
                   basedir="${project.build.directory}/repository/"
-                  includes="artifacts.xml"
-                />
-                <zip destfile="${project.build.directory}/repository/content.jar"
+                  includes="artifacts.xml" />
+                <zip
+                  destfile="${project.build.directory}/repository/content.jar"
                   basedir="${project.build.directory}/repository/"
                   includes="content.xml" />
               </target>
@@ -142,7 +143,8 @@
             </goals>
             <configuration>
               <target name="xz-artifacts-xml">
-                <taskdef resource="org/apache/ant/compress/antlib.xml"
+                <taskdef
+                  resource="org/apache/ant/compress/antlib.xml"
                   classpathref="maven.plugin.classpath" />
                 <xz
                   srcfile="${project.build.directory}/repository/artifacts.xml"
@@ -154,7 +156,8 @@
             </configuration>
           </execution>
           <execution>
-            <!--Remove artifacts.xml and content.xml (we don't need them anymore) -->
+            <!--Remove artifacts.xml and content.xml (we don't need them 
+              anymore) -->
             <id>remove-artifacts-content-xml</id>
             <phase>package</phase>
             <goals>
@@ -162,8 +165,10 @@
             </goals>
             <configuration>
               <target>
-                <delete file="${project.build.directory}/repository/artifacts.xml"/>
-                <delete file="${project.build.directory}/repository/content.xml"/>
+                <delete
+                  file="${project.build.directory}/repository/artifacts.xml" />
+                <delete
+                  file="${project.build.directory}/repository/content.xml" />
               </target>
             </configuration>
           </execution>
@@ -175,11 +180,12 @@
             </goals>
             <configuration>
               <target>
-                <echo file="${project.build.directory}/repository/p2.index">
-artifact.repository.factory.order=artifacts.xml.xz,artifacts.xml,\!
-version=1
-metadata.repository.factory.order=content.xml.xz,content.xml,\!
-</echo>
+                <echo
+                  file="${project.build.directory}/repository/p2.index">
+                  artifact.repository.factory.order=artifacts.xml.xz,artifacts.xml,\!
+                  version=1
+                  metadata.repository.factory.order=content.xml.xz,content.xml,\!
+                </echo>
               </target>
             </configuration>
           </execution>
@@ -205,7 +211,7 @@ metadata.repository.factory.order=content.xml.xz,content.xml,\!
                 <args>${sites}</args>
                 <args>-installIUs</args>
                 <args>${features}</args>
-<!--                 <args>-verifyOnly</args> -->
+                <!-- <args>-verifyOnly</args> -->
               </applicationsArgs>
             </configuration>
             <goals>
