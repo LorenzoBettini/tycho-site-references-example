@@ -50,6 +50,9 @@
         <groupId>org.eclipse.tycho</groupId>
         <artifactId>tycho-p2-repository-plugin</artifactId>
         <configuration>
+          <!-- don't compress because we need to patch content.xml;
+             we'll compress content.xml later with ant (see below).
+             Don't create zip of repository since we don't need it anyway. -->
           <compress>false</compress>
           <xzCompress>false</xzCompress>
           <skipArchive>true</skipArchive>
@@ -182,10 +185,10 @@
               <target>
                 <echo
                   file="${project.build.directory}/repository/p2.index">
-                  artifact.repository.factory.order=artifacts.xml.xz,artifacts.xml,\!
-                  version=1
-                  metadata.repository.factory.order=content.xml.xz,content.xml,\!
-                </echo>
+artifact.repository.factory.order=artifacts.xml.xz,artifacts.xml,\!
+version=1
+metadata.repository.factory.order=content.xml.xz,content.xml,\!
+</echo>
               </target>
             </configuration>
           </execution>
