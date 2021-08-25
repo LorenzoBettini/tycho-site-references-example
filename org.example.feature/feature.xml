@@ -16,6 +16,10 @@
       [Enter License Description here.]
    </license>
 
+   <requires>
+      <import feature="org.eclipse.xtext.xbase" version="2.25.0" match="compatible"/>
+   </requires>
+
    <plugin
          id="org.example.plugin"
          download-size="0"
