@@ -15,6 +15,7 @@
     <build.destination>${project.build.directory}/installed-plugins</build.destination>
     <features>org.example.feature.feature.group</features>
     <sites>file:/${project.build.directory}/repository</sites>
+    <bundlepool>${user.home}/.bundlepool</bundlepool>
   </properties>
 
   <artifactId>org.example.site</artifactId>
@@ -66,6 +67,8 @@
                 <args>${sites}</args>
                 <args>-installIUs</args>
                 <args>${features}</args>
+                <args>-bundlepool</args>
+                <args>${bundlepool}</args>
                 <!-- <args>-verifyOnly</args> -->
               </applicationsArgs>
             </configuration>
